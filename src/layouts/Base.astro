@@ -1,0 +1,26 @@
+---
+// Minimal shell for WS1; WS2 replaces it with the full studio layout.
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Free QR codes that never expire. Made in your browser, nothing uploaded.' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+  </head>
+  <body class="min-h-screen bg-white font-sans text-slate-900 antialiased">
+    <slot />
+  </body>
+</html>
