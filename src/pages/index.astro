@@ -1,0 +1,105 @@
+---
+// WS1 minimal page: a URL field, the live SVG and an SVG download. WS2 replaces it.
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="ForeverQR: free QR codes that never expire">
+  <main class="mx-auto flex max-w-xl flex-col gap-6 p-6">
+    <h1 class="text-3xl font-bold">ForeverQR</h1>
+    <label class="flex flex-col gap-1 text-sm font-medium">
+      URL
+      <input
+        id="url"
+        type="url"
+        inputmode="url"
+        autocomplete="url"
+        value="https://example.com"
+        class="rounded border border-slate-300 px-3 py-2 text-base"
+      />
+    </label>
+    <p id="error" role="alert" class="text-sm text-red-700"></p>
+    <p data-testid="scan-badge" data-status="checking" data-revision="0" class="text-sm text-slate-600" aria-live="polite">
+      Checking the code scans...
+    </p>
+    <div data-testid="qr-preview" class="w-full max-w-sm self-center [&>svg]:h-auto [&>svg]:w-full"></div>
+    <button
+      id="download-svg"
+      type="button"
+      class="self-start rounded bg-slate-900 px-4 py-2 text-white hover:bg-slate-700">Download SVG</button
+    >
+  </main>
+</Base>
+
+<script>
+  import { buildPayload } from '../lib/qr/payloads';
+  import { encode } from '../lib/qr/encode';
+  import { DEFAULT_STYLE } from '../lib/qr/options';
+  import { buildScene, type Scene } from '../lib/qr/render/scene';
+  import { sceneToSvg } from '../lib/qr/render/svg';
+
+  const input = document.querySelector<HTMLInputElement>('#url')!;
+  const preview = document.querySelector<HTMLDivElement>('[data-testid="qr-preview"]')!;
+  const error = document.querySelector<HTMLParagraphElement>('#error')!;
+  const button = document.querySelector<HTMLButtonElement>('#download-svg')!;
+  const badge = document.querySelector<HTMLParagraphElement>('[data-testid="scan-badge"]')!;
+
+  let svg = '';
+  let run = 0;
+
+  async function update() {
+    const mine = ++run;
+    const payload = buildPayload('url', { url: input.value });
+    if ('error' in payload) {
+      error.textContent = payload.error;
+      return;
+    }
+    try {
+      const scene = await buildScene(encode(payload.text, 'M'), DEFAULT_STYLE);
+      if (mine !== run) return;
+      svg = sceneToSvg(scene);
+      preview.innerHTML = svg;
+      error.textContent = '';
+      void verify(scene, payload.text, mine);
+    } catch (err) {
+      error.textContent = (err as Error).message;
+    }
+  }
+
+  let revision = 0;
+
+  // Decode the rendered code in a worker (zxing-wasm, self-hosted) and show the verdict.
+  async function verify(scene: Scene, expected: string, mine: number) {
+    badge.dataset.status = 'checking';
+    badge.textContent = 'Checking the code scans...';
+    let status = 'fail';
+    try {
+      const [{ sceneToImageData }, { decodeImage }] = await Promise.all([
+        import('../lib/qr/render/png'),
+        import('../lib/qr/scan/decode'),
+      ]);
+      const found = await decodeImage(await sceneToImageData(scene, 600));
+      status = found.some((r) => r.text === expected) ? 'pass' : 'fail';
+    } catch {
+      status = 'fail';
+    }
+    if (mine !== run) return;
+    badge.dataset.status = status;
+    badge.dataset.revision = String(++revision);
+    badge.textContent = status === 'pass' ? 'Scan check: this code decodes.' : 'Scan check: this code did not decode.';
+  }
+
+  button.addEventListener('click', () => {
+    if (!svg) return;
+    const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'qr-code.svg';
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  input.addEventListener('input', update);
+  update();
+</script>
