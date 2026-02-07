@@ -13,7 +13,10 @@ export const VECTORS: Vector[] = [
   {
     type: 'wifi',
     fields: { ssid: 'My;Net', password: 'p:ss"1', encryption: 'WPA', hidden: false },
-    expected: 'WIFI:T:WPA;S:My\;Net;P:p\:ss\\"1;;',
+    // ZXing "Barcode Contents" WIFI: format: in S and P the characters \ ; , : " are escaped
+    // with a backslash (https://github.com/zxing/zxing/wiki/Barcode-Contents#wi-fi-network-config-android-ios-11).
+    // Payload: WIFI:T:WPA;S:My\;Net;P:p\:ss\"1;;  (each payload backslash is \\ in the JS literal).
+    expected: 'WIFI:T:WPA;S:My\\;Net;P:p\\:ss\\"1;;',
   },
   {
     type: 'vcard',
@@ -24,12 +27,15 @@ export const VECTORS: Vector[] = [
       phoneCell: '+15551234567',
       email: 'john@example.com',
     },
+    // vCard 3.0 text values escape \ , ; and newline with a backslash (RFC 2426 section 4,
+    // "text" value type; vCard 4.0 keeps the same rule in RFC 6350 section 3.4). Payload lines:
+    // N:Doe\, Jr.;John;;;  FN:John Doe\, Jr.  ORG:A\;B  (each payload backslash is \\ in the JS literal).
     expected: [
       'BEGIN:VCARD',
       'VERSION:3.0',
-      'N:Doe\, Jr.;John;;;',
-      'FN:John Doe\, Jr.',
-      'ORG:A\;B',
+      'N:Doe\\, Jr.;John;;;',
+      'FN:John Doe\\, Jr.',
+      'ORG:A\\;B',
       'TEL;TYPE=CELL:+15551234567',
       'EMAIL:john@example.com',
       'END:VCARD',
