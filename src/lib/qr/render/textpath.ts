@@ -1,10 +1,16 @@
 // Frame CTA text as a vector path (opentype.js + the bundled Archivo Black TTF), so the
 // text looks identical in SVG, PNG and PDF and needs no font at view time.
-import { parse, type Font } from 'opentype.js';
+import * as opentype from 'opentype.js';
+import type { Font } from 'opentype.js';
 import type { Box } from './path';
 
 export const CTA_FONT_URL = '/fonts/ArchivoBlack-Regular.ttf';
 const CTA_FONT_FILE = 'public/fonts/ArchivoBlack-Regular.ttf';
+
+// Bundlers pick opentype.js's ESM build (named exports); plain Node picks its UMD main,
+// where the API sits on the default export. Accept either.
+const parse: typeof opentype.parse =
+  opentype.parse ?? (opentype as unknown as { default: typeof opentype }).default.parse;
 
 let fontPromise: Promise<Font> | null = null;
 
