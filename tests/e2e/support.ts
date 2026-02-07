@@ -29,7 +29,7 @@ import { readFile } from 'node:fs/promises';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { decodePng, decodeRgba, type Decoded } from '../helpers/zxing';
+import { decodePng, type Decoded } from '../helpers/zxing';
 
 export const ROOT = fileURLToPath(new URL('../..', import.meta.url));
 // Fixture PNGs are generated and committed by WS1 (scripts/make-fixtures.ts).
@@ -114,9 +114,13 @@ export async function decodeDownloadedPng(buf: Buffer): Promise<string[]> {
   return (await decodePng(buf)).map((r) => r.text);
 }
 
-/** Render SVG markup to a px-by-px canvas in the page and decode the pixels in node. */
+/**
+ * Render SVG markup to a px-by-px canvas in the page and decode the pixels in node.
+ * The canvas comes back as one lossless PNG data URL (a single base64 string), not as
+ * Array.from(getImageData) — 4M JSON numbers over CDP took 80 s on a loaded machine.
+ */
 export async function decodeSvgInPage(page: Page, svg: string, px = 1024): Promise<Decoded[]> {
-  const raw = await page.evaluate(
+  const dataUrl = await page.evaluate(
     async ({ svg, px }) => {
       const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
       const img = new Image();
@@ -137,11 +141,11 @@ export async function decodeSvgInPage(page: Page, svg: string, px = 1024): Promi
       ctx.fillRect(0, 0, w, h);
       ctx.drawImage(img, 0, 0, w, h);
       URL.revokeObjectURL(url);
-      return { data: Array.from(ctx.getImageData(0, 0, w, h).data), width: w, height: h };
+      return canvas.toDataURL('image/png');
     },
     { svg, px },
   );
-  return decodeRgba({ data: new Uint8ClampedArray(raw.data), width: raw.width, height: raw.height });
+  return decodePng(Buffer.from(dataUrl.slice(dataUrl.indexOf(',') + 1), 'base64'));
 }
 
 /** Wait for the next completed scan check after `before`, return its status. */
