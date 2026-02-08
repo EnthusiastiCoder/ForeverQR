@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT = 4321;
+// ForeverQR's own fixed port. Other local projects already own 4321 (Nopload, QuietPDF),
+// 4799 (Framelab) and 4173 (JEE Quest); never share one.
+const PORT = 4391;
 const baseURL = process.env.BASE_URL ?? `http://localhost:${PORT}`;
 
 export default defineConfig({
@@ -18,9 +20,10 @@ export default defineConfig({
   webServer: process.env.BASE_URL
     ? undefined
     : {
-        command: 'npm run build && npm run preview',
+        command: `npm run build && node scripts/serve-dist.mjs ${PORT}`,
         url: baseURL,
-        reuseExistingServer: !process.env.CI,
+        // Never reuse a running server: if the port is busy, fail rather than test another project.
+        reuseExistingServer: false,
         timeout: 240_000,
       },
   projects: [
