@@ -7,7 +7,7 @@ import { createServer } from 'node:http';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize, resolve, sep } from 'node:path';
 
-const port = Number(process.argv[2] ?? 4321);
+const port = Number(process.argv[2] ?? 4391);
 const dist = resolve(process.argv[3] ?? 'dist');
 
 const TYPES = {
