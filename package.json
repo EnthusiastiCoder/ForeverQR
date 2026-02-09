@@ -30,6 +30,7 @@
     "@types/node": "^26.6.6",
     "@types/opentype.js": "^1.3.10",
     "@types/pngjs": "^6.0.5",
+    "@vite-pwa/astro": "^2.0.4",
     "astro": "^7.4.13",
     "happy-dom": "^21.0.4",
     "pngjs": "^7.0.0",
