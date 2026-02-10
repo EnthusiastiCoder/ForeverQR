@@ -1,0 +1,13 @@
+---
+import PrivacyMeter from './PrivacyMeter.svelte';
+---
+
+<footer class="mt-16 border-t border-line">
+  <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <PrivacyMeter client:load />
+    <p>
+      ForeverQR: static QR codes, made in your browser. No accounts, no tracking, no expiry.
+      <a href="/privacy/" class="font-medium text-ink underline underline-offset-2 hover:text-brand">Privacy</a>
+    </p>
+  </div>
+</footer>
