@@ -120,7 +120,7 @@ async function scan(job: Promise<Rendered | null>, mine: number, transparent: bo
       import('../../lib/qr/render/png'),
       import('../../lib/qr/scan/decode'),
     ]);
-    const [bigImg, smallImg] = await Promise.all([sceneToImageData(r.scene, 1024), sceneToImageData(r.scene, 160)]);
+    const [bigImg, smallImg] = await Promise.all([sceneToImageData(r.scene, 1024), sceneToImageData(r.scene, 200)]);
     if (mine !== seq) return;
     const [large, small] = await Promise.all([decodeImage(bigImg), decodeImage(smallImg)]);
     issues = assessScannability(r.style, r.matrix, { expected: r.text, large, small, transparent });
