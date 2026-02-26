@@ -18,6 +18,7 @@ file (or source header where the package has no LICENSE file).
 | pdf-lib | 1.17.1 | MIT | https://github.com/Hopding/pdf-lib | Copyright (c) 2019 Andrew Dillon |
 | @pdf-lib/standard-fonts | 1.0.0 | MIT | https://github.com/Hopding/standard-fonts | Copyright (c) 2018 Andrew Dillon |
 | @pdf-lib/upng | 1.0.1 | MIT | https://github.com/Hopding/upng | Copyright (c) 2017 Photopea |
+| Workbox runtime (workbox-*.js, ships with sw.js) | via @vite-pwa/astro | MIT | https://github.com/GoogleChrome/workbox | Copyright (c) 2018 Google LLC |
 | pako | 1.0.11 | (MIT AND Zlib) | https://github.com/nodeca/pako | Copyright (C) 2014-2017 by Vitaly Puzrin and Andrei Tuputcyn |
 | tslib | 1.14.1 | 0BSD | https://github.com/Microsoft/tslib | Copyright (c) Microsoft Corporation |
 | opentype.js | 2.0.0 | MIT | https://github.com/opentypejs/opentype.js | Copyright (c) 2020 Frederik De Bleser |
