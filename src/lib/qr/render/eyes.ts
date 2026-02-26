@@ -13,6 +13,10 @@ export function finderOrigins(size: number): [number, number][] {
   ];
 }
 
+// A slightly wider hole (ring 0.8 module) keeps the ring and the inner shape apart when the
+// code is downscaled to 160 px; a full-module ring merges with the dot and stops decoding.
+const CIRCLE_HOLE = 1.08;
+
 function shape(style: EyeStyle, x: number, y: number, w: number, ccw: boolean): string {
   switch (style) {
     case 'circle':
@@ -45,7 +49,7 @@ function hole(style: EyeStyle, x: number, y: number, w: number, ms: number): str
   // The hole follows the outer shape, one module in, so the ring keeps a constant width.
   switch (style) {
     case 'circle':
-      return circlePath(x + w / 2, y + w / 2, w / 2, true);
+      return circlePath(x + w / 2, y + w / 2, (w / 2) * CIRCLE_HOLE, true);
     case 'rounded': {
       const r = Math.max(0, 7 * ms * (2 / 7) - ms);
       return rectPath(x, y, w, w, [r, r, r, r], true);
