@@ -1,0 +1,30 @@
+{
+  "updated": "2026-11-22",
+  "entries": [
+    { "domain": "qrco.de", "vendor": "QR Code Generator", "kind": "dynamic-qr", "source": "https://support.qr-code-generator.com/hc/en-us/articles/7664232533133-Why-are-there-different-short-URLs-domains-", "evidence": "Requesting https://qrco.de/ answers 302 to this QR Code Generator support article about their short-URL domains." },
+    { "domain": "l.ead.me", "vendor": "QR Code Generator", "kind": "dynamic-qr", "source": "https://support.qr-code-generator.com/hc/en-us/articles/7664232533133-Why-are-there-different-short-URLs-domains-", "evidence": "Requesting https://l.ead.me/ answers 302 to the same QR Code Generator short-URL domains article." },
+    { "domain": "qr.codes", "vendor": "QR.io", "kind": "dynamic-qr", "source": "https://qr.codes/", "evidence": "The page says: qr.codes is brought to you by QR.io, an example of a dynamic QR code." },
+    { "domain": "qr.link", "vendor": "QR.io", "kind": "dynamic-qr", "source": "https://qr.link/", "evidence": "The page 'What is qr.link?' says it is brought to you by QR.io." },
+    { "domain": "scnv.io", "vendor": "Scanova", "kind": "dynamic-qr", "source": "https://scnv.io/", "evidence": "The page says scnv.io is a scanning domain owned and operated by Scanova QR Code Generator." },
+    { "domain": "qrs.ly", "vendor": "QR Stuff", "kind": "dynamic-qr", "source": "https://www.qrstuff.com/", "evidence": "Requesting https://qrs.ly/ answers 302 to https://qrstuff.com." },
+    { "domain": "qrd.by", "vendor": "QR Planet", "kind": "dynamic-qr", "source": "https://qrplanet.com/", "evidence": "Requesting https://qrd.by/ answers 301 to https://qrplanet.com/." },
+    { "domain": "qr.beaconstac.com", "vendor": "Uniqode (Beaconstac)", "kind": "dynamic-qr", "source": "https://www.uniqode.com/", "evidence": "Requesting https://qr.beaconstac.com/ answers 301 to https://uniqode.com." },
+    { "domain": "qrcodes.pro", "vendor": "Uniqode (Beaconstac)", "kind": "dynamic-qr", "source": "https://www.uniqode.com/", "evidence": "Requesting https://qrcodes.pro/ answers 301 to https://uniqode.com." },
+    { "domain": "qr1.be", "vendor": "QR TIGER", "kind": "dynamic-qr", "source": "https://qr1.be/", "evidence": "The qr1.be redirect page is branded QR TIGER." },
+    { "domain": "qrcc.io", "vendor": "QRCodeChimp", "kind": "dynamic-qr", "source": "https://qrcc.io/", "evidence": "The page says: This is a URL Shortener site for QR Codes that are created on QRCodeChimp." },
+    { "domain": "qr1.at", "vendor": "qr1.at", "kind": "dynamic-qr", "source": "https://qr1.at/", "evidence": "The site offers dynamic QR codes whose target URL can be changed later, served from qr1.at." },
+    { "domain": "qrc.is", "vendor": "QRColor", "kind": "dynamic-qr", "source": "https://www.qrcolor.com/", "evidence": "Requesting https://qrc.is/ answers 307 to https://www.qrcolor.com." },
+    { "domain": "qr2.me-qr.com", "vendor": "ME-QR", "kind": "dynamic-qr", "source": "https://me-qr.com/", "evidence": "Requesting https://me-qr.com/l answers 302 to https://qr2.me-qr.com/l/, the redirect host for ME-QR links." },
+    { "domain": "uqr.me", "vendor": "QR Code KIT", "kind": "dynamic-qr", "source": "https://qrcodekit.com/", "evidence": "Requesting https://uqr.me/ answers 301 to qrcodekit.com." },
+    { "domain": "bit.ly", "vendor": "Bitly", "kind": "shortener", "source": "https://bitly.com/", "evidence": "Requesting https://bit.ly/ answers with a redirect to https://bitly.com/, Bitly's own site." },
+    { "domain": "tinyurl.com", "vendor": "TinyURL", "kind": "shortener", "source": "https://tinyurl.com/", "evidence": "The page is titled 'URL Shortener, Branded Short Links & Analytics | TinyURL'." },
+    { "domain": "cutt.ly", "vendor": "Cuttly", "kind": "shortener", "source": "https://cutt.ly/", "evidence": "The page is titled 'Cuttly: URL Shortener, Branded Domains, Short Link Analytics'." },
+    { "domain": "tiny.cc", "vendor": "Tinycc", "kind": "shortener", "source": "https://tiny.cc/", "evidence": "The page is titled 'Tiny URL | Free Short URL Redirects with Tinycc'." },
+    { "domain": "v.gd", "vendor": "v.gd", "kind": "shortener", "source": "https://v.gd/", "evidence": "The page is titled 'v.gd - The ethical URL shortener'." },
+    { "domain": "t.co", "vendor": "X (Twitter)", "kind": "shortener", "source": "https://t.co/", "evidence": "The page is titled 't.co / X'; it is X's link shortener." },
+    { "domain": "buff.ly", "vendor": "Buffer", "kind": "shortener", "source": "https://buffer.com/", "evidence": "Requesting https://buff.ly/ answers 301 to https://buffer.com/." },
+    { "domain": "bl.ink", "vendor": "Bl.ink", "kind": "shortener", "source": "https://www.bl.ink/", "evidence": "Requesting https://bl.ink/ answers 307 to https://www.bl.ink/, a branded short-link service." },
+    { "domain": "s.id", "vendor": "s.id", "kind": "shortener", "source": "https://home.s.id/", "evidence": "Requesting https://s.id/ answers 303 to https://home.s.id, a link shortener site." },
+    { "domain": "lnkd.in", "vendor": "LinkedIn", "kind": "shortener", "source": "https://www.linkedin.com/", "evidence": "Requesting https://lnkd.in/ answers with a redirect to https://www.linkedin.com/, LinkedIn's own short-link domain." }
+  ]
+}
