@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { AstroPWAIntegration } from '@vite-pwa/astro';
 
@@ -32,6 +33,7 @@ export default defineConfig({
   output: 'static',
   integrations: [
     svelte(),
+    sitemap(),
     AstroPWAIntegration({
       registerType: 'autoUpdate',
       injectRegister: false,
@@ -52,6 +54,16 @@ export default defineConfig({
       generateSW: {
         globPatterns: ['**/*.{js,css,html,wasm,woff2,ttf,svg,png}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        // Pages are served at /slug/, but the manifest lists them as slug/index.html: give them the trailing
+        // slash form (and "/" for the home page, which the navigation fallback needs) so the precache matches the URL a visitor (or the offline fallback) asks for.
+        manifestTransforms: [
+          (entries) => ({
+            manifest: entries.map((e) =>
+              /(^|\/)index\.html$/.test(e.url) ? { ...e, url: e.url.replace(/index\.html$/, '') || '/' } : e,
+            ),
+            warnings: [],
+          }),
+        ],
       },
     }),
   ],
