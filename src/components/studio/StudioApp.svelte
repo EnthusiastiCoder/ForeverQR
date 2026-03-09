@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, untrack } from 'svelte';
+  import type { PayloadType } from '../../lib/qr/payloads';
   import { DOT_STYLES, EYE_STYLES, type DotStyle, type EyeStyle } from '../../lib/qr/options';
   import AdvancedControls from './AdvancedControls.svelte';
   import ColorControls from './ColorControls.svelte';
@@ -25,8 +26,15 @@
   const panelId = 'studio-panel';
   const idPrefix = 'studio-tab';
 
+  // Landing pages pass the type tab to open on; it wins over the saved state.
+  let { presetType }: { presetType?: PayloadType } = $props();
+
   onMount(() => {
     loadState();
+    if (presetType) {
+      ui.savedType = studio.type;
+      studio.type = presetType;
+    }
   });
 
   $effect(() => {
