@@ -67,6 +67,8 @@ export const ui = $state({
   eccRaised: false,
   /** True once the saved state and URL parameters were applied (client only). */
   loaded: false,
+  /** On a landing page the preset type is not saved: this is the type to store instead. */
+  savedType: null as PayloadType | null,
 });
 
 const clampInt = (v: unknown, lo: number, hi: number, d: number) => {
@@ -133,6 +135,7 @@ export function loadState(search: string = location.search) {
 
 export function saveState() {
   const snap = $state.snapshot(studio) as StudioState;
+  if (ui.savedType) snap.type = ui.savedType;
   if (snap.style.logo && snap.style.logo.href.length > MAX_SAVED_LOGO) snap.style.logo = null;
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(snap));
