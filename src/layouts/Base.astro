@@ -7,9 +7,17 @@ import Footer from '../components/common/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  jsonLd?: object[];
 }
 
-const { title, description = 'Free QR codes that never expire. Made in your browser, nothing uploaded.' } = Astro.props;
+const {
+  title,
+  description = 'Free QR codes that never expire. Made in your browser, nothing uploaded.',
+  image = '/og/home.png',
+  jsonLd = [],
+} = Astro.props;
+const imageUrl = new URL(image, Astro.site);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -21,6 +29,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ForeverQR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d).replace(/</g, '\\u003c')} />)}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
