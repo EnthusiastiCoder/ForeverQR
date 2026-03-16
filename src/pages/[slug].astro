@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import StudioApp from '../components/studio/StudioApp.svelte';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('landing');
+  return pages.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { title, description, h1, type, faq, slug } = entry.data;
+const { Content } = await render(entry);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base title={title} description={description} image={`/og/${slug}.png`} jsonLd={jsonLd}>
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold sm:text-4xl">{h1}</h1>
+      <p class="mt-2 text-lg">{description}</p>
+    </header>
+    <StudioApp client:load presetType={type} />
+    <article class="prose-fq mx-auto mt-16 max-w-3xl">
+      <Content />
+      <section aria-labelledby="faq-h">
+        <h2 id="faq-h">Frequently asked questions</h2>
+        {
+          faq.map((f) => (
+            <details class="fq-faq">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </section>
+    </article>
+  </div>
+</Base>
+
+<style is:global>
+  .prose-fq h2 { margin: 2rem 0 0.75rem; font-size: 1.5rem; font-weight: 700; }
+  .prose-fq p, .prose-fq ul, .prose-fq ol { margin: 0.75rem 0; line-height: 1.7; }
+  .prose-fq ul { list-style: disc; padding-left: 1.5rem; }
+  .prose-fq ol { list-style: decimal; padding-left: 1.5rem; }
+  .prose-fq a { text-decoration: underline; text-underline-offset: 2px; color: var(--color-brand); }
+  .prose-fq code { font-family: ui-monospace, monospace; font-size: 0.9em; }
+  .fq-faq { border-top: 1px solid var(--color-line); padding: 0.75rem 0; }
+  .fq-faq summary { cursor: pointer; font-weight: 600; }
+</style>
