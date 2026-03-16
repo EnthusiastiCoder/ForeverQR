@@ -1,9 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
 import StudioApp from '../components/studio/StudioApp.svelte';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'ForeverQR',
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Any (web browser)',
+    url: new URL('/', Astro.site).href,
+    description: 'Free QR code generator and checker. Static codes that never expire, made entirely in your browser.',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+];
 ---
 
-<Base title="ForeverQR: free QR codes that never expire">
+<Base title="ForeverQR: free QR codes that never expire" jsonLd={jsonLd}>
   <div class="mx-auto max-w-6xl px-4 py-8">
     <header class="mb-8">
       <h1 class="text-3xl font-bold sm:text-4xl">QR codes that never expire</h1>
