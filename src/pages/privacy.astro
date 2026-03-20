@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Privacy: ForeverQR makes zero requests"
+  description="What runs where: everything runs in your browser. No analytics, no fonts or scripts from other sites, the camera stays local, only localStorage is used."
+>
+  <div class="mx-auto max-w-3xl px-4 py-8">
+    <h1 class="text-3xl font-bold sm:text-4xl">Privacy</h1>
+    <p class="mt-2 text-lg">ForeverQR has no back end. Nothing you type, upload or scan is sent anywhere.</p>
+
+    <h2 class="mt-8 text-xl font-bold">What runs where</h2>
+    <ul class="mt-2 list-disc space-y-2 pl-6 leading-7">
+      <li>QR codes are drawn in your browser, by JavaScript that ships with this site. Your text, Wi-Fi password or contact details never leave the page.</li>
+      <li>PNG, SVG and PDF files are built in your browser and handed to you as a download.</li>
+      <li>Reading a QR code (the checker) uses a decoder compiled to WebAssembly that also ships with this site. Uploaded images stay in memory.</li>
+    </ul>
+
+    <h2 class="mt-8 text-xl font-bold">Zero outside requests</h2>
+    <p class="mt-2 leading-7">
+      Fonts, scripts, styles and images all come from this site. There are no analytics, no ads, no tag managers and no
+      content networks. A Content Security Policy tells your browser to refuse anything else, and the meter in the footer
+      counts the requests this page made so you can see for yourself. To check by hand, open your browser's DevTools, switch to the Network tab and reload: every row is from this site.
+    </p>
+
+    <h2 class="mt-8 text-xl font-bold">The camera</h2>
+    <p class="mt-2 leading-7">
+      The checker can use your camera to read a code. Video frames are decoded on your device and are never recorded or
+      uploaded. The camera starts only when you press the Camera button and stops when you press Stop or leave the page.
+    </p>
+
+    <h2 class="mt-8 text-xl font-bold">What is stored</h2>
+    <p class="mt-2 leading-7">
+      Your studio settings (and your logo, if it is small) are saved in your browser's localStorage so they are there next
+      time. The theme choice is saved the same way. There are no cookies. The Reset button clears the saved settings.
+    </p>
+
+    <h2 class="mt-8 text-xl font-bold">The one optional outbound step</h2>
+    <p class="mt-2 leading-7">
+      When the checker finds a link that goes through a redirect service, it can offer to open that link so you can see
+      where it ends up. That happens only after you confirm in a dialog, in a new tab, and it is a normal visit to that
+      site, which may count the scan. Cancel and nothing is requested.
+    </p>
+  </div>
+</Base>
