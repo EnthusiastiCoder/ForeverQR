@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import licences from '../../THIRD_PARTY_LICENSES.md?raw';
+---
+
+<Base
+  title="About ForeverQR: credits and licences"
+  description="Who made ForeverQR, why it exists, and the open-source libraries and fonts it ships with, each with its licence."
+>
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    <h1 class="text-3xl font-bold sm:text-4xl">About ForeverQR</h1>
+    <p class="mt-2 text-lg">A free QR code studio that makes codes that never expire, and a checker that tells you whether someone else's code will.</p>
+
+    <h2 class="mt-8 text-xl font-bold">Why it exists</h2>
+    <p class="mt-2 leading-7">
+      Many QR code sites sell "dynamic" codes: the code points at their server, and when the subscription ends the code stops
+      working. ForeverQR makes static codes that hold your content directly, so there is nothing to renew and nothing to
+      switch off. It runs entirely in your browser, with no accounts and no tracking. The{' '}
+      <a href="/privacy/" class="underline underline-offset-2">privacy page</a> explains what runs where.
+    </p>
+
+    <h2 class="mt-8 text-xl font-bold">Credits</h2>
+    <p class="mt-2 leading-7">
+      Built by Arpan Mandal with Astro, Svelte and Tailwind CSS. QR encoding by qrcode-generator, QR reading by zxing-wasm
+      (a WebAssembly build of zxing-cpp), PDF export by pdf-lib. Fonts are Inter and Archivo Black, both under the SIL Open
+      Font License. The source link will be added here once the repository is public.
+    </p>
+
+    <h2 class="mt-8 text-xl font-bold">Licences</h2>
+    <p class="mt-2 leading-7">The complete list of third-party code and fonts shipped with the site, verbatim:</p>
+    <pre
+      tabindex="0"
+      aria-label="Third-party licences"
+      class="mt-3 max-h-[32rem] overflow-auto rounded-lg border border-line bg-surface p-4 text-xs leading-5 whitespace-pre-wrap break-words">{licences.replaceAll('`', '')}</pre>
+  </div>
+</Base>
