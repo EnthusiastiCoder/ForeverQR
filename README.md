@@ -1,5 +1,7 @@
 # ForeverQR
 
+
+Live: https://foreverqr-anu.pages.dev
 A free QR code studio that makes codes that never expire, plus a checker that tells you whether
 someone else's code will. Everything runs in your browser.
 
